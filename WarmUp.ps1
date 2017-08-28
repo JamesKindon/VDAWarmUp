@@ -63,7 +63,7 @@ Step 6 - Enjoy first users of the day not whinging
 $LogonSimSource = "C:\Program Files (x86)\ControlUp Logon Simulator\ControlUpLogonSim.exe"
 $LaunchFilesSource = "C:\temp\ControlUp\Automate" # See Notes Above
 $RunLocked = "False" #See Notes above
-[int]$TimeBetweenSessionLaunch = "60" # Time in Seconds. See Notes above
+[int]$TimeBetweenSessionLaunch = "45" # Time in Seconds. See Notes above
 $PortTest = "True" # See Notes above
 $Port = "1494" # See Notes above
 
@@ -102,7 +102,7 @@ $Port = "1494" # See Notes above
     function ControlUpLaunch {
         Write-Host "Launching Logon Simulator with $LaunchFile"
         Log-Write "$(Get-Date -f o) - Launching Logon Simulator with $LaunchFile"
-        Start-Process $LogonSimSource -ArgumentList "/noeula /s /config=""$LaunchFile""" -passthru
+        Start-Process $LogonSimSource -ArgumentList "/noeula /s /config=""$LaunchFile""" -passthru | Out-Null
         SleepNow
         Stop-Process -name ControlUpLogonSim -Confirm:$false
         Log-Write "$(Get-Date -f o) - Stopped ControlUp Sim Process $LaunchFile"
