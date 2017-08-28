@@ -162,18 +162,19 @@ $Port = "1494" # See Notes above
     # Launch ControlUp   
     foreach ($Launchfile in $LaunchFiles) {
         if ($PortTest -eq "True") {
-            Write-Host "Port Testing Enabled using port $Port" -ForegroundColor Yellow
-            Log-Write "$(Get-Date -f o) - Port Testing Enabled on port $Port"
+
             [xml]$xml = Get-Content $launchfile
             $ServerName = ($xml.SelectNodes("/ApplicationSettings/resourcename")).InnerXml
+            Write-Host "Port Testing Enabled using port $Port against $ServerName" -ForegroundColor Cyan
+            Log-Write "$(Get-Date -f o) - Port Testing Enabled on port $Port against $ServerName"
             $ICATest = Test-NetConnection -ComputerName $ServerName -Port $Port
                 if ($ICATest.TcpTestSucceeded -match "False") {
                     write-Host "Port Test Failed on port $Port, Aborting Launch request for $ServerName" -ForegroundColor Red
-                    Log-Write "$(Get-Date -f o) - Port Test failed on port $Port for $ServerName - Aborting Launch Request"
+                    Log-Write "$(Get-Date -f o) - Port Test failed on port $Port against $ServerName - Aborting Launch Request"
                 }
                 elseif ($ICATest.TcpTestSucceeded -match "True") {
                     Write-Host "Port Test Succeeded on port $Port for $ServerName - Executing Launch Request" -ForegroundColor Green
-                    Log-Write "$(Get-Date -f o) - Port Test Succeeded on $Port for $ServerName - Executing Launch Request"
+                    Log-Write "$(Get-Date -f o) - Port Test Succeeded on $Port against $ServerName - Executing Launch Request"
                     ControlUpLaunch
                 }
             }
