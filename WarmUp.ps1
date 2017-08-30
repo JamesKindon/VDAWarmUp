@@ -30,6 +30,7 @@ The below is optional, however i think its the best way to manage this tool. You
  - Use the Active Directory group you created above as the entitlement group
 
 Step 3 - Configure Control Up Simulator
+ - Install Citrix Receiver on the Launch Machine
  - Run Control Up login Sim once. Specify your Storefront or NetScaler Gateway
  - Specify the name of the first application/resource and specify user account (AutoLogon Account)
  - Set your desired time for session wait before logoff. Test and save settings file
